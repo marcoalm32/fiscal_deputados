@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { PoTemplatesModule } from '@po-ui/ng-templates';
@@ -14,7 +15,8 @@ import { DeputadosModule } from './deputados/deputados.module';
     BrowserModule,
     AppRoutingModule,
     DeputadosModule,
-    PoTemplatesModule
+    PoTemplatesModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

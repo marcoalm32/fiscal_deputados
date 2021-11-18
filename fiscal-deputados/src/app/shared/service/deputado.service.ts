@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -8,5 +9,7 @@ export class DeputadoService {
 
   private urlApi = `${environment.urlApi}/deputados`;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  
 }

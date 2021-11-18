@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PoBreadcrumb, PoPageEditLiterals } from '@po-ui/ng-components';
 import { PoPageDynamicSearchFilters, PoPageDynamicSearchLiterals } from '@po-ui/ng-templates';
 import { DeputadoService } from 'src/app/shared/service/deputado.service';
@@ -11,7 +12,7 @@ import { DeputadoService } from 'src/app/shared/service/deputado.service';
 export class DeputadosComponent implements OnInit {
 
   readonly breadcrumb: PoBreadcrumb = {
-    items: [{label: 'Gerenciar Deputados'}]
+    items: [{label: 'Visualizar Deputados', action: this.voltar.bind(this)}, {label: 'Visualizar Despesas'}]
   }
   
   readonly literals: PoPageDynamicSearchLiterals = {
@@ -26,8 +27,13 @@ export class DeputadosComponent implements OnInit {
     { property: 'estado', label: 'Estado',gridColumns: 6 },
   ];
 
+  public deputadosList = [
+    {nome: 'Bolsonaro', partido: 'PSL', estado: 'RJ', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/768px-Angular_full_color_logo.svg.png'}
+  ]
+
   constructor(
-    private deputadoSerivce: DeputadoService
+    private deputadoSerivce: DeputadoService,
+    private router: Router
   ) { }
 
 
@@ -45,5 +51,9 @@ export class DeputadosComponent implements OnInit {
 
   showMore(filter: any) {
 
+  }
+
+  voltar() {
+    this.router.navigate(['']);
   }
 }

@@ -17,7 +17,7 @@ import { PoPageDynamicSearchModule } from '@po-ui/ng-templates';
     PoWidgetModule,
     PoPageModule,
     PoBreadcrumbModule,
-    PoPageDynamicSearchModule
+    PoPageDynamicSearchModule,
   ],
   exports: [DeputadosComponent]
 })

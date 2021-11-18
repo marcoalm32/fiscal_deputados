@@ -7,10 +7,22 @@
     (p-quick-search)="onQuickSearch($event)"
     
 >
-<po-widget
-    p-title="Deputado"
-    (p-show-more)="showMore($event)"
-></po-widget>
+<div class="po-row">
+    <div class="po-lg-3" *ngFor="let deps of deputadosList">
+        <p class="card-foto">
+            <img class="foto" src="{{deps.url}}" alt="foto do deputado">
+        </p>
+        <po-widget
+        p-title="{{ deps.nome }}"
+        (p-show-more)="showMore($event)"
+        p-primary-label="Detalhes"
+>
+    <p> {{ deps.partido }} </p>
+    <p> {{ deps.estado }}</p>
+</po-widget>
+    </div>
+</div>
+
 
 </po-page-dynamic-search>
 
