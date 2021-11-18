@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PoBreadcrumb } from '@po-ui/ng-components';
+import { DeputadoService } from 'src/app/shared/service/deputado.service';
 
 @Component({
   selector: 'app-deputados',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeputadosComponent implements OnInit {
 
-  constructor() { }
+
+
+  constructor(
+    private deputadoSerivce: DeputadoService
+  ) { }
+
 
   ngOnInit(): void {
   }
 
+  voltar() {
+
+  }
 }

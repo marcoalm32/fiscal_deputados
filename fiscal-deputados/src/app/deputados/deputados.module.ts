@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DeputadosRoutingModule } from './deputados-routing.module';
 import { DeputadosComponent } from './components/deputados/deputados.component';
+import { PoPageModule, PoWidgetModule } from '@po-ui/ng-components';
 
 
 @NgModule({
@@ -11,7 +12,10 @@ import { DeputadosComponent } from './components/deputados/deputados.component';
   ],
   imports: [
     CommonModule,
-    DeputadosRoutingModule
-  ]
+    DeputadosRoutingModule,
+    PoWidgetModule,
+    PoPageModule
+  ],
+  exports: [DeputadosComponent]
 })
 export class DeputadosModule { }
