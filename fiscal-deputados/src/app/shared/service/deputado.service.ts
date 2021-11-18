@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DeputadoService {
 
-  private urlApi = 'https://dadosabertos.camara.leg.br/api/v2/deputados/';
-  
+  private urlApi = `${environment.urlApi}/deputados`;
+
   constructor() { }
 }

@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { DeputadosRoutingModule } from './deputados-routing.module';
 import { DeputadosComponent } from './components/deputados/deputados.component';
-import { PoPageModule, PoWidgetModule } from '@po-ui/ng-components';
+import { PoBreadcrumbModule, PoPageModule, PoWidgetModule } from '@po-ui/ng-components';
+import { PoPageDynamicSearchModule } from '@po-ui/ng-templates';
 
 
 @NgModule({
@@ -14,7 +15,9 @@ import { PoPageModule, PoWidgetModule } from '@po-ui/ng-components';
     CommonModule,
     DeputadosRoutingModule,
     PoWidgetModule,
-    PoPageModule
+    PoPageModule,
+    PoBreadcrumbModule,
+    PoPageDynamicSearchModule
   ],
   exports: [DeputadosComponent]
 })
