@@ -1,8 +1,8 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PoBreadcrumb, PoPageEditLiterals } from '@po-ui/ng-components';
+import { PoBreadcrumb, PoNotificationService, PoPageEditLiterals } from '@po-ui/ng-components';
 import { PoPageDynamicSearchFilters, PoPageDynamicSearchLiterals } from '@po-ui/ng-templates';
-import { Observable, Subscription } from 'rxjs';
+import { map, Observable, Subscription, tap } from 'rxjs';
 import { DeputadoServiceContract } from 'src/app/shared/model/deputado-service.contract';
 import { RespostaModel } from 'src/app/shared/model/resposta.model';
 import { DeputadoService } from 'src/app/shared/service/deputado.service';
@@ -37,30 +37,46 @@ export class DeputadosComponent implements OnInit, OnDestroy {
   MostrarMais: boolean = true;
   parametros = {
     ordem: 'desc',
-    ordenarPor: 'dataDocumento',
+    ordenarPor: 'nome',
     pagina: 1,
     itens: 8,
   };
  
-  deputadosList: any[] = [
-    {nome: 'Bolsonaro', partido: 'PSL', estado: 'Rio de Janeiro'},
-    {nome: 'Lula', partido: 'PT', estado: 'São Paulo'},
-    {nome: 'João Amoedo', partido: 'Novo', estado: 'São Paulo'}
-  ]
+  // deputadosList: any[] = [
+  //   {nome: 'Bolsonaro', partido: 'PSL', estado: 'Rio de Janeiro'},
+  //   {nome: 'Lula', partido: 'PT', estado: 'São Paulo'},
+  //   {nome: 'João Amoedo', partido: 'Novo', estado: 'São Paulo'}
+  // ]
+
+  todosDeputados: DeputadoModel[] = [];
 
   inscricoes: Subscription[] = [];
   constructor(
     private router: Router,
     @Inject('deputadoService') private deputadoService: DeputadoServiceContract,
+    private poNotification: PoNotificationService
   ) { }
 
 
   ngOnInit(): void {
-    this.deputadoService.lerDeputados(this.parametros)
+    this.pegarDeputados(this.parametros);
   }
 
   ngOnDestroy() {
-    
+    this.inscricoes.forEach(inscricao => {
+      inscricao.unsubscribe();
+    });
+  }
+
+  pegarDeputados(parametros: any) {
+    const inscricao = this.deputadoService.lerDeputados(this.parametros).subscribe(
+      (resposta: RespostaModel<DeputadoModel>) => {
+        this.todosDeputados = [...this.todosDeputados, ...resposta.dados]
+      },
+      error => {
+        this.poNotification.error('Ocorreu um erro, por favor, tente mais tarde!')
+      }
+    )
   }
 
   onAdvancedSearch(filter: any) {

@@ -8,9 +8,9 @@
     
 >
 <div class="po-row">
-    <div class="po-lg-3" *ngFor="let deps of deputadosList">
+    <div class="po-lg-3" *ngFor="let deps of todosDeputados">
         <p class="card-foto">
-            <img class="foto" src="{{deps.url}}" alt="foto do deputado">
+            <img class="foto" src="{{deps.urlFoto}}" alt="foto do deputado">
         </p>
         <po-widget
         p-title="{{ deps.nome }}"
@@ -18,8 +18,8 @@
         p-primary-label="Detalhes" 
         (p-title-action)="exibirDetalhes($event)"
 >
-    <p> Partido: {{ deps.partido }} </p>
-    <p> Estado: {{ deps.estado }}</p>
+    <p> Partido: {{ deps.uriPartido }} </p>
+    <p> Estado: {{ deps.siglaUf }}</p>
 </po-widget>
     </div>
 </div>
