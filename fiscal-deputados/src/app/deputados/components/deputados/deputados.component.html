@@ -21,6 +21,12 @@
     <p> Estado: {{ deps.siglaUf }}</p>
 </po-widget>
     </div>
+
+    <po-modal 
+        *ngIf="detalhes"
+        p-click-out="true"
+        p-title="Informações"
+    ></po-modal>
 </div>
 
 <div class="card-btn">

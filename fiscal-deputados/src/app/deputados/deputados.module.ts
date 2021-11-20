@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DeputadosRoutingModule } from './deputados-routing.module';
 import { DeputadosComponent } from './components/deputados/deputados.component';
-import { PoBreadcrumbModule, PoButtonModule, PoPageModule, PoWidgetModule } from '@po-ui/ng-components';
+import { PoBreadcrumbModule, PoButtonModule, PoModalModule, PoPageModule, PoWidgetModule } from '@po-ui/ng-components';
 import { PoPageDynamicSearchModule } from '@po-ui/ng-templates';
 import { DeputadoService } from '../shared/service/deputado.service';
 
@@ -19,7 +19,8 @@ import { DeputadoService } from '../shared/service/deputado.service';
     PoPageModule,
     PoBreadcrumbModule,
     PoPageDynamicSearchModule,
-    PoButtonModule
+    PoButtonModule,
+    PoModalModule
   ],
   providers: [
     {provide: 'deputadoService', useClass: DeputadoService}

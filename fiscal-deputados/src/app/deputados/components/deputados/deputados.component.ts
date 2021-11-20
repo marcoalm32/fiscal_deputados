@@ -34,19 +34,13 @@ export class DeputadosComponent implements OnInit, OnDestroy {
     { property: 'estado', label: 'Estado',gridColumns: 6 },
   ];
 
-  MostrarMais: boolean = true;
+  detalhes: boolean = false;
   parametros = {
     ordem: 'desc',
     ordenarPor: 'nome',
     pagina: 1,
     itens: 8,
   };
- 
-  // deputadosList: any[] = [
-  //   {nome: 'Bolsonaro', partido: 'PSL', estado: 'Rio de Janeiro'},
-  //   {nome: 'Lula', partido: 'PT', estado: 'São Paulo'},
-  //   {nome: 'João Amoedo', partido: 'Novo', estado: 'São Paulo'}
-  // ]
 
   todosDeputados: DeputadoModel[] = [];
 
@@ -103,7 +97,7 @@ export class DeputadosComponent implements OnInit, OnDestroy {
   }
 
   exibirDetalhes(evento: any) {
-    console.log('detalhes')
+    this.detalhes = true;
   }
 
   voltar() {
