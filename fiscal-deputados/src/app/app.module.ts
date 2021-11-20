@@ -16,7 +16,7 @@ import { DeputadosModule } from './deputados/deputados.module';
     AppRoutingModule,
     DeputadosModule,
     PoTemplatesModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

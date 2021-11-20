@@ -5,6 +5,7 @@ import { DeputadosRoutingModule } from './deputados-routing.module';
 import { DeputadosComponent } from './components/deputados/deputados.component';
 import { PoBreadcrumbModule, PoPageModule, PoWidgetModule } from '@po-ui/ng-components';
 import { PoPageDynamicSearchModule } from '@po-ui/ng-templates';
+import { DeputadoService } from '../shared/service/deputado.service';
 
 
 @NgModule({
@@ -18,6 +19,9 @@ import { PoPageDynamicSearchModule } from '@po-ui/ng-templates';
     PoPageModule,
     PoBreadcrumbModule,
     PoPageDynamicSearchModule,
+  ],
+  providers: [
+    {provide: 'deputadoService', useClass: DeputadoService}
   ],
   exports: [DeputadosComponent]
 })

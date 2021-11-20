@@ -14,11 +14,12 @@
         </p>
         <po-widget
         p-title="{{ deps.nome }}"
-        (p-show-more)="showMore($event)"
-        p-primary-label="Detalhes"
+        (p-show-more)="aparecerMais($event)"
+        p-primary-label="Detalhes" 
+        (p-title-action)="exibirDetalhes($event)"
 >
-    <p> {{ deps.partido }} </p>
-    <p> {{ deps.estado }}</p>
+    <p> Partido: {{ deps.partido }} </p>
+    <p> Estado: {{ deps.estado }}</p>
 </po-widget>
     </div>
 </div>

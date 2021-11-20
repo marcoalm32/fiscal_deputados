@@ -1,16 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PoBreadcrumb, PoPageEditLiterals } from '@po-ui/ng-components';
 import { PoPageDynamicSearchFilters, PoPageDynamicSearchLiterals } from '@po-ui/ng-templates';
+import { Observable, Subscription } from 'rxjs';
+import { DeputadoServiceContract } from 'src/app/shared/model/deputado-service.contract';
+import { RespostaModel } from 'src/app/shared/model/resposta.model';
 import { DeputadoService } from 'src/app/shared/service/deputado.service';
+import { DeputadosModule } from '../../deputados.module';
+import { DeputadoModel } from '../../model/deputado.model';
 
 @Component({
   selector: 'app-deputados',
   templateUrl: './deputados.component.html',
   styleUrls: ['./deputados.component.scss']
 })
-export class DeputadosComponent implements OnInit {
+export class DeputadosComponent implements OnInit, OnDestroy {
 
+  limiteItems: number = 8;
+  filtros = {};
   readonly breadcrumb: PoBreadcrumb = {
     items: [{label: 'Visualizar Deputados', action: this.voltar.bind(this)}, {label: 'Visualizar Despesas'}]
   }
@@ -27,17 +34,33 @@ export class DeputadosComponent implements OnInit {
     { property: 'estado', label: 'Estado',gridColumns: 6 },
   ];
 
-  public deputadosList = [
-    {nome: 'Bolsonaro', partido: 'PSL', estado: 'RJ', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/768px-Angular_full_color_logo.svg.png'}
+  MostrarMais: boolean = true;
+  parametros = {
+    ordem: 'desc',
+    ordenarPor: 'dataDocumento',
+    pagina: 1,
+    itens: 8,
+  };
+ 
+  deputadosList: any[] = [
+    {nome: 'Bolsonaro', partido: 'PSL', estado: 'Rio de Janeiro'},
+    {nome: 'Lula', partido: 'PT', estado: 'São Paulo'},
+    {nome: 'João Amoedo', partido: 'Novo', estado: 'São Paulo'}
   ]
 
+  inscricoes: Subscription[] = [];
   constructor(
-    private deputadoSerivce: DeputadoService,
-    private router: Router
+    private router: Router,
+    @Inject('deputadoService') private deputadoService: DeputadoServiceContract,
   ) { }
 
 
   ngOnInit(): void {
+    this.deputadoService.lerDeputados(this.parametros)
+  }
+
+  ngOnDestroy() {
+    
   }
 
   onAdvancedSearch(filter: any) {
@@ -49,8 +72,13 @@ export class DeputadosComponent implements OnInit {
   }
   
 
-  showMore(filter: any) {
+  aparecerMais(evento: any) {
+    this.parametros.pagina = this.parametros.pagina +1
 
+  }
+
+  exibirDetalhes(evento: any) {
+    console.log('detalhes')
   }
 
   voltar() {
