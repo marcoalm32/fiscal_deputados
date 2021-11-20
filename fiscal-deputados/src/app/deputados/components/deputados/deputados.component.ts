@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PoBreadcrumb, PoNotificationService, PoPageEditLiterals } from '@po-ui/ng-components';
 import { PoPageDynamicSearchFilters, PoPageDynamicSearchLiterals } from '@po-ui/ng-templates';
 import { map, Observable, Subscription, tap } from 'rxjs';
@@ -54,7 +54,8 @@ export class DeputadosComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     @Inject('deputadoService') private deputadoService: DeputadoServiceContract,
-    private poNotification: PoNotificationService
+    private poNotification: PoNotificationService,
+    private route: ActivatedRoute
   ) { }
 
 
@@ -66,6 +67,14 @@ export class DeputadosComponent implements OnInit, OnDestroy {
     this.inscricoes.forEach(inscricao => {
       inscricao.unsubscribe();
     });
+  }
+
+  pegarDeputadoId() : Observable<any> {
+    return this.route.paramMap.pipe(
+      map(paramsMap => {
+        return paramsMap.get('id');
+      })
+    )
   }
 
   pegarDeputados(parametros: any) {
@@ -88,8 +97,8 @@ export class DeputadosComponent implements OnInit, OnDestroy {
   }
   
 
-  aparecerMais(evento: any) {
-    this.parametros.pagina = this.parametros.pagina +1
+  aparecerMais() {
+    this.parametros.pagina = this.parametros.pagina + 1
 
   }
 

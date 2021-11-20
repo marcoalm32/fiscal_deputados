@@ -17,7 +17,7 @@ export class DeputadoService implements DeputadoServiceContract {
   constructor(private http: HttpClient) { }
 
   lerDeputados(parametros: any): Observable<RespostaModel<DeputadoModel>> {
-    return this.http.get<RespostaModel<DeputadoModel>>(this.urlApi)
+    return this.http.get<RespostaModel<DeputadoModel>>(this.urlApi, {params: parametros})
   }
   
 }
