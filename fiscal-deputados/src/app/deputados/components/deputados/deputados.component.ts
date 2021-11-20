@@ -97,9 +97,9 @@ export class DeputadosComponent implements OnInit, OnDestroy {
   }
   
 
-  aparecerMais() {
+  aparecerMais(evento: any) {
     this.parametros.pagina = this.parametros.pagina + 1
-
+    this.pegarDeputados(this.parametros);
   }
 
   exibirDetalhes(evento: any) {

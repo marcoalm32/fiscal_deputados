@@ -23,6 +23,13 @@
     </div>
 </div>
 
-<button (click)="aparecerMais()">Mostrar Mais</button>
+<div class="card-btn">
+    <po-button
+    class="po-lg-3"
+    (p-click)="aparecerMais($event)"
+    p-label="Mostrar Mais"
+></po-button>
+</div>
+
 </po-page-dynamic-search>
 
