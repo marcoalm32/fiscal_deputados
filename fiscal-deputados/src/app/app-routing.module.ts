@@ -7,10 +7,7 @@ const routes: Routes = [
    path: 'deputados',
    loadChildren: () => import('./deputados/deputados.module').then(m => m.DeputadosModule)
   },
-  {
-    path: 'despesas',
-    loadChildren: () => import()
-  }
+  {path: '**', redirectTo: ''}
 ];
 
 @NgModule({
