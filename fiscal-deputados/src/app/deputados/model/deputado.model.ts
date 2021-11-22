@@ -7,5 +7,5 @@ export interface DeputadoModel {
     siglaUf: string,
     uri: string,
     uriPartido: string,
-    urlFoto: string
+    urlFoto: string,
 }

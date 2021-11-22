@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { DeputadosRoutingModule } from './deputados-routing.module';
 import { DeputadosComponent } from './components/deputados/deputados.component';
-import { PoBreadcrumbModule, PoButtonModule, PoModalModule, PoPageModule, PoWidgetModule } from '@po-ui/ng-components';
+import { PoBreadcrumbModule, PoButtonModule, PoDynamicModule, PoModalModule, PoPageModule, PoWidgetModule } from '@po-ui/ng-components';
 import { PoPageDynamicSearchModule } from '@po-ui/ng-templates';
 import { DeputadoService } from '../shared/service/deputado.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -20,7 +21,9 @@ import { DeputadoService } from '../shared/service/deputado.service';
     PoBreadcrumbModule,
     PoPageDynamicSearchModule,
     PoButtonModule,
-    PoModalModule
+    PoModalModule,
+    PoDynamicModule,
+    ReactiveFormsModule
   ],
   providers: [
     {provide: 'deputadoService', useClass: DeputadoService}
