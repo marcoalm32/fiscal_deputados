@@ -76,14 +76,6 @@ export class DeputadosComponent implements OnInit, OnDestroy {
     });
   }
 
-  pegarDeputadoId() : Observable<any> {
-    return this.route.paramMap.pipe(
-      map(paramsMap => {
-        return paramsMap.get('id');
-      })
-    )
-  }
-
   pegarDeputados(parametros: any) {
     const inscricao = this.deputadoService.pegarTodosDeputados(this.parametros).subscribe(
       (resposta: RespostaModel<DeputadoModel[]>) => {
