@@ -38,7 +38,8 @@ export class DeputadosComponent implements OnInit, OnDestroy {
   ];
 
   readonly campoVisualizacaoDetalhesDeputados: Array<PoDynamicViewField> = [
-    {property: 'sexo', divider: 'Dados Pessoais', gridColumns: 4},
+    {property: 'nomeCivil', divider: 'Dados Pessoais', gridColumns: 4},
+    {property: 'sexo', label: 'sexo', gridColumns: 4},
     {property: 'dataNascimento', label: 'Data de Nascimento', gridColumns: 4, type: 'date'},
     {property: 'siglaUf', label: 'Estado', gridColumns: 4},
     {property: 'email', divider: 'Dados para contato', gridColumns: 4},
