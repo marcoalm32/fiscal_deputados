@@ -8,7 +8,7 @@ const routes: Routes = [
     component: DeputadosComponent
   },
   {
-    path: 'despesas/:id',
+    path: ':id/despesas',
     loadChildren: () => import('../despesas/despesas.module').then(m => m.DespesasModule) 
   }
 ];

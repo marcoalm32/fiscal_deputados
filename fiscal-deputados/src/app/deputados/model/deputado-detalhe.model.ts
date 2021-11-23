@@ -9,7 +9,7 @@ export class DeputadoDetalhes {
     redeSocial: string[];
     sexo: string;
     ufNascimento: string;
-    ultimoStatus: UltimoStatusModel;
+    ultimoStatus: UltimoStatusModel = new UltimoStatusModel();
     uri: string;
     urlWebsite: string;
 }
@@ -19,7 +19,7 @@ export class UltimoStatusModel {
     data: string;
     descricaoStatus: string;
     email: string;
-    gabinete: GabineteModel;
+    gabinete: GabineteModel = new GabineteModel();
     id: number;
     idLegislatura: number;
     nome: string;

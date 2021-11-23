@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PoBreadcrumb, PoDynamicViewField, PoModalComponent, PoModalModule, PoNotificationService, PoPageEditLiterals } from '@po-ui/ng-components';
+import { PoBreadcrumb, PoDynamicViewField, PoModalComponent, PoModalModule, PoNotificationService, PoPageEditLiterals, PoToolbarAction } from '@po-ui/ng-components';
 import { PoDynamicField } from '@po-ui/ng-components/lib/components/po-dynamic/po-dynamic-field.interface';
 import { PoPageDynamicSearchFilters, PoPageDynamicSearchLiterals } from '@po-ui/ng-templates';
 import { map, Observable, Subscription, switchMap, tap } from 'rxjs';
@@ -9,8 +9,9 @@ import { DeputadoServiceContract } from 'src/app/shared/model/deputado-service.c
 import { RespostaModel } from 'src/app/shared/model/resposta.model';
 import { DeputadoService } from 'src/app/shared/service/deputado.service';
 import { DeputadosModule } from '../../deputados.module';
-import { DeputadoDetalhes } from '../../model/deputado-detalhe.model';
+import { DeputadoDetalhes, UltimoStatusModel } from '../../model/deputado-detalhe.model';
 import { DeputadoModel } from '../../model/deputado.model';
+import { DeputadoDetalheView } from '../../model/deputadoDetalheView';
 
 @Component({
   selector: 'app-deputados',
@@ -38,13 +39,14 @@ export class DeputadosComponent implements OnInit, OnDestroy {
   ];
 
   readonly campoVisualizacaoDetalhesDeputados: Array<PoDynamicViewField> = [
-    {property: 'nomeCivil', divider: 'Dados Pessoais', gridColumns: 4},
-    {property: 'sexo', label: 'sexo', gridColumns: 4},
+    {property: 'ultimoStatus.nome', label: 'Nome', gridColumns: 4},
+    {property: 'sexo', label: 'Sexo', gridColumns: 4},
     {property: 'dataNascimento', label: 'Data de Nascimento', gridColumns: 4, type: 'date'},
     {property: 'siglaUf', label: 'Estado', gridColumns: 4},
-    {property: 'email', divider: 'Dados para contato', gridColumns: 4},
-    {property: 'urlWebsite', gridColumns: 4}
+    {property: 'ultimoStatus.email', label: 'E-mail', gridColumns: 4},
+    {property: 'urlWebsite', label: 'linke do site', gridColumns: 4}
   ]
+
 
   parametros = {
     ordem: 'asc',
@@ -86,6 +88,7 @@ export class DeputadosComponent implements OnInit, OnDestroy {
         this.poNotification.error('Ocorreu um erro, por favor, tente mais tarde!')
       }
     )
+    this.inscricoes.push(inscricao);
   }
 
   onAdvancedSearch(filter: any) {
@@ -97,7 +100,6 @@ export class DeputadosComponent implements OnInit, OnDestroy {
   }
   
   verDespesas() {
-   
   }
 
   aparecerMais(evento: any) {
@@ -107,13 +109,13 @@ export class DeputadosComponent implements OnInit, OnDestroy {
 
   exibirDetalhes(idDeputado: number) {
     this.deputadoDetalhesModal.open();
-    const isncricao = this.deputadoService.pegarDeputadoId(idDeputado).subscribe(
+    const inscricao = this.deputadoService.pegarDeputadoId(idDeputado).subscribe(
       ((resposta: RespostaModel<DeputadoDetalhes>) => {
         this.detalheDeputado = resposta.dados
       }),
-      error => this.poNotification.error('Erro ao tentar ')
+      error => this.poNotification.error('Ocorreu um erro, por favor, tente mais tarde!')
     )
-    this.inscricoes.push(isncricao);
+    this.inscricoes.push(inscricao);
 
   }
 
