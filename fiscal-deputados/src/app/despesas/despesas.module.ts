@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DespesasRoutingModule } from './despesas-routing.module';
 import { VisualizarDespesasComponent } from './components/visualizar-despesas/visualizar-despesas.component';
 import { DeputadoService } from '../shared/service/deputado.service';
+import { PoBreadcrumbModule, PoPageModule, PoTableModule } from '@po-ui/ng-components';
 
 
 @NgModule({
@@ -12,7 +13,10 @@ import { DeputadoService } from '../shared/service/deputado.service';
   ],
   imports: [
     CommonModule,
-    DespesasRoutingModule
+    DespesasRoutingModule,
+    PoBreadcrumbModule,
+    PoPageModule,
+    PoTableModule
   ],
   providers: [
     {provide: 'deputadoService', useClass: DeputadoService }
