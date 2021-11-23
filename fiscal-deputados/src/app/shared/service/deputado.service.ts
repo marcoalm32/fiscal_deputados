@@ -4,6 +4,7 @@ import { EMPTY, Observable } from 'rxjs';
 import { DeputadosModule } from 'src/app/deputados/deputados.module';
 import { DeputadoDetalhes } from 'src/app/deputados/model/deputado-detalhe.model';
 import { DeputadoModel } from 'src/app/deputados/model/deputado.model';
+import { DepesasModel } from 'src/app/despesas/model/despesas.model';
 import { RespostaModel } from 'src/app/shared/model/resposta.model';
 import { environment } from 'src/environments/environment';
 import { DeputadoServiceContract } from '../model/deputado-service.contract';
@@ -23,6 +24,11 @@ export class DeputadoService implements DeputadoServiceContract {
 
   pegarDeputadoId(id: number): Observable<RespostaModel<DeputadoDetalhes>> {
     return this.http.get<RespostaModel<DeputadoDetalhes>>(`${this.urlApi}/${id}`);
+  }
+
+  pegarDespesas(idDeputado: string, parametros: any): Observable<RespostaModel<DepesasModel>> {
+    const endPoint = `${idDeputado}/despesas`;
+    return this.http.get<RespostaModel<DepesasModel>>(this.urlApi + endPoint, {params: parametros});
   }
   
 }
