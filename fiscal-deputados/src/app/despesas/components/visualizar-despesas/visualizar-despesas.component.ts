@@ -1,6 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PoBreadcrumb, PoNotificationService, PoTableAction, PoTableColumn } from '@po-ui/ng-components';
+import { map, Observable, Subscription } from 'rxjs';
 import { DeputadoServiceContract } from '../../../shared/model/deputado-service.contract';
 import { DespesasModule } from '../../despesas.module';
 import { DespesasModel } from './../../model/despesas.model';
@@ -10,7 +11,7 @@ import { DespesasModel } from './../../model/despesas.model';
   templateUrl: './visualizar-despesas.component.html',
   styleUrls: ['./visualizar-despesas.component.scss']
 })
-export class VisualizarDespesasComponent implements OnInit {
+export class VisualizarDespesasComponent implements OnInit, OnDestroy {
 
   readonly breadcrumb: PoBreadcrumb = {
     items: [{ label: 'Visualizar Deputados', action: this.voltar.bind(this) }, { label: 'Visualizar Despesas' }]
@@ -28,6 +29,7 @@ export class VisualizarDespesasComponent implements OnInit {
   ];
 
   despesasList: DespesasModel[] = [];
+  inscricoes: Subscription[] = [];
   parametros = {
     ordem: 'desc',
     ordenarPor: 'dataDocumento',
@@ -45,12 +47,27 @@ export class VisualizarDespesasComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy() {
+    this.inscricoes.forEach(inscricao => {
+      inscricao.unsubscribe();
+    });
+  }
+
+  pegarDeputadoId(): Observable<any> {
+    return this.route.paramMap.pipe(
+      map(paramsMap => {
+        return paramsMap.get('id');
+      })
+    );
+  }
+
   voltar() {
     this.router.navigate(['']).then();
   }
 
   aparecerMais() {
-
+    this.parametros.pagina = this.parametros.pagina + 1;
+    //this.pegarDespesas(this.parametros);
   }
 
   abrirArquivo(despesa: DespesasModel) {
