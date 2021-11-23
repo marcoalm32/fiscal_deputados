@@ -26,9 +26,9 @@ export class DeputadoService implements DeputadoServiceContract {
     return this.http.get<RespostaModel<DeputadoDetalhes>>(`${this.urlApi}/${id}`);
   }
 
-  pegarDespesas(idDeputado: string, parametros: any): Observable<RespostaModel<DespesasModel>> {
+  pegarDespesas(idDeputado: string, parametros: any): Observable<RespostaModel<DespesasModel[]>> {
     const endPoint = `${idDeputado}/despesas`;
-    return this.http.get<RespostaModel<DespesasModel>>(this.urlApi + endPoint, {params: parametros});
+    return this.http.get<RespostaModel<DespesasModel[]>>(this.urlApi + endPoint, {params: parametros});
   }
   
 }

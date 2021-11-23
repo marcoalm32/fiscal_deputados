@@ -5,7 +5,7 @@ import { DespesasModel } from "src/app/despesas/model/despesas.model";
 import { RespostaModel } from "./resposta.model";
 
 export interface DeputadoServiceContract {
-    pegarDespesas(idDeputado: string, parametros: any): Observable<RespostaModel<DespesasModel>>;
+    pegarDespesas(idDeputado: string, parametros: any): Observable<RespostaModel<DespesasModel[]>>;
     
     pegarTodosDeputados(parametros: any) : Observable<RespostaModel<DeputadoModel[]>>;
 

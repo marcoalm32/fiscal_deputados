@@ -1,7 +1,8 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PoBreadcrumb, PoNotificationService, PoTableAction, PoTableColumn } from '@po-ui/ng-components';
-import { map, Observable, Subscription } from 'rxjs';
+import { map, Observable, Subscription, switchMap } from 'rxjs';
+import { RespostaModel } from 'src/app/shared/model/resposta.model';
 import { DeputadoServiceContract } from '../../../shared/model/deputado-service.contract';
 import { DespesasModule } from '../../despesas.module';
 import { DespesasModel } from './../../model/despesas.model';
@@ -59,6 +60,22 @@ export class VisualizarDespesasComponent implements OnInit, OnDestroy {
         return paramsMap.get('id');
       })
     );
+  }
+
+  pegarDespesas(parametros: any) {
+    const inscricao = this.pegarDeputadoId().pipe(
+      switchMap(idDeputado => {
+        return this.deputadoService.pegarDespesas(idDeputado, parametros);
+      })
+    ).subscribe(
+      (resposta: RespostaModel<DespesasModel[]>) => {
+        this.despesasList = [...this.despesasList, ...resposta.dados];
+      },
+      error => {
+        this.poNotification.error('Ocorreu um erro, por favor, tente mais tarde.');
+      }
+    );
+    this.inscricoes.push(inscricao);
   }
 
   voltar() {
