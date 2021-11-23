@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PoBreadcrumb, PoNotificationService, PoTableColumn } from '@po-ui/ng-components';
+import { PoBreadcrumb, PoNotificationService, PoTableAction, PoTableColumn } from '@po-ui/ng-components';
 import { DeputadoServiceContract } from '../../../shared/model/deputado-service.contract';
 import { DespesasModule } from '../../despesas.module';
+import { DespesasModel } from './../../model/despesas.model';
 
 @Component({
   selector: 'app-visualizar-despesas',
@@ -21,8 +22,12 @@ export class VisualizarDespesasComponent implements OnInit {
     {label: 'Valor do Documento', property: 'valorDocumento', type: 'currency', format: 'BRL'},
     {label: 'Date do Documento', property: 'dataDocumento', type: 'date'},
   ];
-  
-  despesasList: DespesasModule[] = [];
+
+  readonly actionsTable: Array<PoTableAction> = [
+    { label: 'Abrir documento', action: this.abrirArquivo.bind(this) },
+  ];
+
+  despesasList: DespesasModel[] = [];
   parametros = {
     ordem: 'desc',
     ordenarPor: 'dataDocumento',
@@ -46,6 +51,14 @@ export class VisualizarDespesasComponent implements OnInit {
 
   aparecerMais() {
 
+  }
+
+  abrirArquivo(despesa: DespesasModel) {
+    const urlDocumento = despesa.urlDocumento
+    if(urlDocumento)
+      window.open(urlDocumento);
+    else
+      this.poNotification.warning('Não existe nota fiscal para esta despesa');
   }
 
 

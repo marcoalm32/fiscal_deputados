@@ -1,5 +1,4 @@
-
-export interface DepesasModel {
+export interface DespesasModel {
     ano: number;
     cnpjCpfFornecedor: string;
     codDocumento: number;
