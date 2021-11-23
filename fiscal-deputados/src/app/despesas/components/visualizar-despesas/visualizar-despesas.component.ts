@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PoBreadcrumb } from '@po-ui/ng-components';
+import { PoBreadcrumb, PoNotificationService } from '@po-ui/ng-components';
 import { DeputadoServiceContract } from '../../../shared/model/deputado-service.contract';
 
 @Component({
@@ -16,7 +16,8 @@ export class VisualizarDespesasComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    @Inject('deputadoService') private deputadoService: DeputadoServiceContract
+    @Inject('deputadoService') private deputadoService: DeputadoServiceContract,
+    private poNotification: PoNotificationService
   ) { }
 
   ngOnInit(): void {
