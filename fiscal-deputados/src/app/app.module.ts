@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { PoToolbarModule } from '@po-ui/ng-components';
 import { PoTemplatesModule } from '@po-ui/ng-templates';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +20,7 @@ import { DespesasModule } from './despesas/despesas.module';
     DeputadosModule,
     PoTemplatesModule,
     HttpClientModule,
+    PoToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
