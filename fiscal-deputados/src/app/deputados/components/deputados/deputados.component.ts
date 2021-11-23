@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PoBreadcrumb, PoDynamicViewField, PoModalComponent, PoModalModule, PoNotificationService, PoPageEditLiterals, PoToolbarAction } from '@po-ui/ng-components';
 import { PoDynamicField } from '@po-ui/ng-components/lib/components/po-dynamic/po-dynamic-field.interface';
 import { PoPageDynamicSearchFilters, PoPageDynamicSearchLiterals } from '@po-ui/ng-templates';
-import { map, Observable, Subscription, switchMap, tap } from 'rxjs';
+import { map, Observable, Subscription, switchMap} from 'rxjs';
 import { DeputadoServiceContract } from 'src/app/shared/model/deputado-service.contract';
 import { RespostaModel } from 'src/app/shared/model/resposta.model';
 import { DeputadoService } from 'src/app/shared/service/deputado.service';
