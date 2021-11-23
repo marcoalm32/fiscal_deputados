@@ -97,7 +97,7 @@ export class DeputadosComponent implements OnInit, OnDestroy {
   }
   
   verDespesas() {
-    console.log('rota')
+   
   }
 
   aparecerMais(evento: any) {
