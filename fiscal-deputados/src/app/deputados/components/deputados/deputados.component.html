@@ -8,7 +8,7 @@
     
 >
     <div class="po-row">
-        <div class="po-lg-3 po-md-4 po-xm-4" *ngFor="let deputado of todosDeputados">
+        <div class="po-lg-3 po-md-4 po-xm-4 card" *ngFor="let deputado of todosDeputados">
             <po-widget
                 p-title="{{ deputado.nome | uppercase}}"
                 p-primary-label="Detalhes" 
@@ -38,10 +38,10 @@
 <po-modal 
     #deputadoDetalhesModal
     p-title="Detalhes do Deputado"
-    p-size="lg"
+    p-size="md"
 >
-    <div class="foto-deputado" *ngIf="detalheDeputado?.ultimoStatus?.urlFoto">
-        <img [src]="detalheDeputado?.ultimoStatus?.urlFoto" alt="foto do deputado">
+    <div class="foto-deputado po-lg-3" *ngIf="detalheDeputado?.ultimoStatus?.urlFoto">
+        <img class="foto" [src]="detalheDeputado?.ultimoStatus?.urlFoto" alt="foto do deputado">
     </div>
     <po-dynamic-view 
     [p-fields]="campoVisualizacaoDetalhesDeputados" 

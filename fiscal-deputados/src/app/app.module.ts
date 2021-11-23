@@ -6,6 +6,7 @@ import { PoTemplatesModule } from '@po-ui/ng-templates';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DeputadosModule } from './deputados/deputados.module';
+import { DespesasModule } from './despesas/despesas.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { DeputadosModule } from './deputados/deputados.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    DespesasModule,
     DeputadosModule,
     PoTemplatesModule,
     HttpClientModule,
