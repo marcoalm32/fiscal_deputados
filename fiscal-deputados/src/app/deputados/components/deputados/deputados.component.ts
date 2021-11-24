@@ -88,7 +88,6 @@ export class DeputadosComponent implements OnInit, OnDestroy {
   localizarPorNome(nome: string) {
   this.parametros['nome'] = nome;
   this.pegarDeputados(this.parametros);
-   
   }
   
   verDespesas(deputado: DeputadoDetalheView) {
