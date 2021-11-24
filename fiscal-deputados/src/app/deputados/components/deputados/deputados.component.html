@@ -1,60 +1,56 @@
+
 <po-page-dynamic-search
-    p-title="Gerenciar Deputados"
-    [p-breadcrumb]="breadcrumb"
-    [p-literals]="literals"
-    (p-quick-search)="localizarPorNome($event)"
-    
+p-title="Gerenciar Deputados"
+[p-breadcrumb]="breadcrumb"
+[p-literals]="literals"
+[p-filters]="filters"
+(p-quick-search)="filtrarPorNome($event)"
+(p-advanced-search)="buscaAvancada($event)"
+(p-change-disclaimers)="renunciarEvento($event)"
 >
-    <div class="po-row">
-        <div class="po-xl-3 po-lg-3 po-md-4 po-sm-4 card" *ngFor="let deputado of todosDeputados">
-            <po-widget
-                p-title="{{ deputado.nome | uppercase}}"
-                p-primary-label="Detalhes" 
-                (p-title-action)="exibirDetalhes(deputado.id)"
-                (p-primary-action)="exibirDetalhes(deputado.id)"
-            >
-            <div class="foto-deputado">
-                <img class="foto" src="{{deputado.urlFoto}}" alt="foto do deputado">
-            </div>
-            <p> Partido: {{ deputado.siglaPartido }} </p>
-            <p> Estado: {{ deputado.siglaUf }}</p>
-            </po-widget>
-        </div>
-
-    
-    </div>
-
-    <div class="card-btn">
-        <po-button
-        class="po-lg-3 po-md-3 po-sm-3 po-xm-3"
-        (p-click)="aparecerMais($event)"
-        p-label="Mostrar Mais"
-    ></po-button>
-</div>
-
-</po-page-dynamic-search>
-<po-modal 
-    #deputadoDetalhesModal
-    p-title="Detalhes do Deputado"
-    p-size="md"
->
-    <div class="foto-deputado po-lg-3" *ngIf="detalheDeputado?.urlFoto">
-        <img class="foto" [src]="detalheDeputado?.urlFoto" alt="foto do deputado">
-    </div>
-    <po-dynamic-view 
-    [p-fields]="campoVisualizacaoDetalhesDeputados" 
-    [p-value]="detalheDeputado"
+<div class="po-row">
+  <div class="po-xl-3 po-lg-3 po-md-4 po-sm-4 card" *ngFor="let deputado of todosDeputados">
+    <po-widget
+        p-title="{{ deputado.nome | uppercase}}"
+        p-primary-label="Detalhes"
+        (p-title-action)="exibirDetalhes(deputado.id)"
+        (p-primary-action)="exibirDetalhes(deputado.id)"
     >
-    </po-dynamic-view>
-    <div *ngIf="detalheDeputado, let deputado">
-        <po-button
-            class="po-lg-4 po-md-4 po-sm-4 po-xm-4"
-            p-type="primary"
-            (p-click)="verDespesas(deputado)"
-            p-label="Ver Despesas"
-            
-        ></po-button>
-    </div>
-        
+      <div class="foto-deputado">
+          <img class="foto" src="{{deputado.urlFoto}}" alt="foto do deputado">
+      </div>
+      <p> Partido: {{ deputado.siglaPartido }} </p>
+      <p> Estado: {{ deputado.siglaUf }}</p>
+    </po-widget>
+  </div>
+</div>
+<div class="card-btn">
+  <po-button
+    class="po-lg-3 po-md-3 po-sm-3 po-xm-3"
+    (p-click)="aparecerMais($event)"
+    p-label="Mostrar Mais"
+  ></po-button>
+</div>
+</po-page-dynamic-search>
+<po-modal
+#deputadoDetalhesModal
+p-title="Detalhes do Deputado"
+p-size="md"
+>
+<div class="foto-deputado po-lg-3" *ngIf="detalheDeputado?.urlFoto">
+  <img class="foto" [src]="detalheDeputado?.urlFoto" alt="foto do deputado">
+</div>
+<po-dynamic-view
+  [p-fields]="campoVisualizacaoDetalhesDeputados"
+  [p-value]="detalheDeputado"
+></po-dynamic-view>
+<div *ngIf="detalheDeputado, let deputado">
+  <po-button
+    class="po-lg-4 po-md-4 po-sm-4 po-xm-4"
+    p-type="primary"
+    (p-click)="verDespesas(deputado)"
+    p-label="Ver Despesas"
+  ></po-button>
+</div>
 </po-modal>
 
