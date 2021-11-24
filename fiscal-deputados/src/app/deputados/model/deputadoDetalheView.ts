@@ -7,4 +7,5 @@ export class DeputadoDetalheView {
     dataNascimento: string;
     siglaPartido: string;
     siglaUf: string;
+    urlFoto: string;
 }

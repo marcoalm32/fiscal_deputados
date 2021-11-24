@@ -1,17 +1,14 @@
 import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PoBreadcrumb, PoDynamicViewField, PoModalComponent, PoModalModule, PoNotificationService, PoPageEditLiterals, PoToolbarAction } from '@po-ui/ng-components';
-import { PoDynamicField } from '@po-ui/ng-components/lib/components/po-dynamic/po-dynamic-field.interface';
 import { PoPageDynamicSearchFilters, PoPageDynamicSearchLiterals } from '@po-ui/ng-templates';
-import { map, Observable, Subscription, switchMap, tap } from 'rxjs';
+import { Observable, Subscription, switchMap} from 'rxjs';
 import { DeputadoServiceContract } from 'src/app/shared/model/deputado-service.contract';
 import { RespostaModel } from 'src/app/shared/model/resposta.model';
-import { DeputadoService } from 'src/app/shared/service/deputado.service';
-import { DeputadosModule } from '../../deputados.module';
 import { DeputadoDetalhes, UltimoStatusModel } from '../../model/deputado-detalhe.model';
 import { DeputadoModel } from '../../model/deputado.model';
 import { DeputadoDetalheView } from '../../model/deputadoDetalheView';
+import { deputadosFactory } from '../../factory/deputado.factory';
 
 @Component({
   selector: 'app-deputados',
@@ -23,7 +20,7 @@ export class DeputadosComponent implements OnInit, OnDestroy {
   limiteItems: number = 8;
   filtros = {};
   readonly breadcrumb: PoBreadcrumb = {
-    items: [{label: 'Visualizar Deputados'}, {label: 'Visualizar Despesas'}]
+    items: [{label: 'Visualizar Deputados', action: this.voltar.bind(this)}, {label: 'Visualizar Despesas'}]
   }
   
   readonly literals: PoPageDynamicSearchLiterals = {
@@ -32,23 +29,17 @@ export class DeputadosComponent implements OnInit, OnDestroy {
     quickSearchLabel: 'Valor pesquisado:'
   };
 
-  public readonly filters: Array<PoPageDynamicSearchFilters> = [
-    { property: 'nome', label: 'Nome', gridColumns: 6 },
-    { property: 'partido', label: 'Partido' ,gridColumns: 6 },
-    { property: 'estado', label: 'Estado',gridColumns: 6 },
-  ];
-
   readonly campoVisualizacaoDetalhesDeputados: Array<PoDynamicViewField> = [
-    {property: 'ultimoStatus.nome', label: 'Nome', gridColumns: 4},
+    {property: 'nome', label: 'Nome', gridColumns: 4},
     {property: 'sexo', label: 'Sexo', gridColumns: 4},
     {property: 'dataNascimento', label: 'Data de Nascimento', gridColumns: 4, type: 'date'},
     {property: 'siglaUf', label: 'Estado', gridColumns: 4},
-    {property: 'ultimoStatus.email', label: 'E-mail', gridColumns: 4},
+    {property: 'email', label: 'E-mail', gridColumns: 4},
     {property: 'urlWebsite', label: 'linke do site', gridColumns: 4}
   ]
 
-
-  parametros = {
+  deputadoFactory = deputadosFactory;
+  parametros: any = {
     ordem: 'asc',
     ordenarPor: 'nome',
     pagina: 1,
@@ -56,7 +47,7 @@ export class DeputadosComponent implements OnInit, OnDestroy {
   };
 
   todosDeputados: DeputadoModel[] = [];
-  detalheDeputado: DeputadoDetalhes = new DeputadoDetalhes();
+  detalheDeputado: DeputadoDetalheView = new DeputadoDetalheView();
   inscricoes: Subscription[] = [];
   filtroNome$: Observable<RespostaModel<DeputadoModel>>;
   @ViewChild('deputadoDetalhesModal') deputadoDetalhesModal: PoModalComponent;
@@ -79,10 +70,13 @@ export class DeputadosComponent implements OnInit, OnDestroy {
     });
   }
 
-  pegarDeputados(parametros: any) {
+  pegarDeputados(parametros: any, eAparecerMais = false) {
     const inscricao = this.deputadoService.pegarTodosDeputados(this.parametros).subscribe(
       (resposta: RespostaModel<DeputadoModel[]>) => {
-        this.todosDeputados = [...this.todosDeputados, ...resposta.dados]
+        if(eAparecerMais)
+          this.todosDeputados = [...this.todosDeputados, ...resposta.dados];
+        else 
+          this.todosDeputados = resposta.dados;
       },
       error => {
         this.poNotification.error('Ocorreu um erro, por favor, tente mais tarde!')
@@ -91,27 +85,31 @@ export class DeputadosComponent implements OnInit, OnDestroy {
     this.inscricoes.push(inscricao);
   }
 
-  onAdvancedSearch(filter: any) {
-
-  }
-
   localizarPorNome(nome: string) {
+  this.parametros['nome'] = nome;
+  this.pegarDeputados(this.parametros);
    
   }
   
-  verDespesas() {
+  verDespesas(deputado: DeputadoDetalheView) {
+    const id = deputado.id;
+    this.router.navigate(['despesas' , id]);
+  }
+
+  voltar() {
+    this.router.navigate(['deputados']);
   }
 
   aparecerMais(evento: any) {
     this.parametros.pagina = this.parametros.pagina + 1
-    this.pegarDeputados(this.parametros);
+    this.pegarDeputados(this.parametros, true);
   }
 
   exibirDetalhes(idDeputado: number) {
     this.deputadoDetalhesModal.open();
     const inscricao = this.deputadoService.pegarDeputadoId(idDeputado).subscribe(
       ((resposta: RespostaModel<DeputadoDetalhes>) => {
-        this.detalheDeputado = resposta.dados
+        this.detalheDeputado = this.deputadoFactory(resposta.dados);
       }),
       error => this.poNotification.error('Ocorreu um erro, por favor, tente mais tarde!')
     )

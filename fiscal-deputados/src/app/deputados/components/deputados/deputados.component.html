@@ -2,8 +2,6 @@
     p-title="Gerenciar Deputados"
     [p-breadcrumb]="breadcrumb"
     [p-literals]="literals"
-    [p-filters]="filters"
-    (p-advanced-search)="onAdvancedSearch($event)"
     (p-quick-search)="localizarPorNome($event)"
     
 >
@@ -28,7 +26,7 @@
 
     <div class="card-btn">
         <po-button
-        class="po-lg-3"
+        class="po-lg-3 po-md-3 po-sm-3 po-xm-3"
         (p-click)="aparecerMais($event)"
         p-label="Mostrar Mais"
     ></po-button>
@@ -40,18 +38,23 @@
     p-title="Detalhes do Deputado"
     p-size="md"
 >
-    <div class="foto-deputado po-lg-3" *ngIf="detalheDeputado?.ultimoStatus?.urlFoto">
-        <img class="foto" [src]="detalheDeputado?.ultimoStatus?.urlFoto" alt="foto do deputado">
+    <div class="foto-deputado po-lg-3" *ngIf="detalheDeputado?.urlFoto">
+        <img class="foto" [src]="detalheDeputado?.urlFoto" alt="foto do deputado">
     </div>
     <po-dynamic-view 
     [p-fields]="campoVisualizacaoDetalhesDeputados" 
     [p-value]="detalheDeputado"
     >
     </po-dynamic-view>
-    <po-button
-        class="po-lg-3"
-        (p-click)="verDespesas()"
-        p-label="Ver Despesas"
-    ></po-button>
+    <div *ngIf="detalheDeputado, let deputado">
+        <po-button
+            class="po-lg-4 po-md-4 po-sm-4 po-xm-4"
+            p-type="primary"
+            (p-click)="verDespesas(deputado)"
+            p-label="Ver Despesas"
+            
+        ></po-button>
+    </div>
+        
 </po-modal>
 
