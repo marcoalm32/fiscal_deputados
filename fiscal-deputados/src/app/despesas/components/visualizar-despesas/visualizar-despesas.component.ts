@@ -85,7 +85,7 @@ export class VisualizarDespesasComponent implements OnInit, OnDestroy {
 
   aparecerMais() {
     this.parametros.pagina = this.parametros.pagina + 1;
-    //this.pegarDespesas(this.parametros);
+    this.pegarDespesas(this.parametros);
   }
 
   abrirArquivo(despesa: DespesasModel) {
