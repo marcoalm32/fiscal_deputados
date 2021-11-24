@@ -7,6 +7,10 @@ const routes: Routes = [
    path: 'deputados',
    loadChildren: () => import('./deputados/deputados.module').then(m => m.DeputadosModule)
   },
+  {
+    path: 'despesas',
+    loadChildren: () => import('./despesas/despesas.module').then(m => m.DespesasModule) 
+  },
   {path: '**', redirectTo: 'deputados'}
 ];
 

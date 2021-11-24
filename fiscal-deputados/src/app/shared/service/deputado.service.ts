@@ -14,7 +14,7 @@ import { DeputadoServiceContract } from '../model/deputado-service.contract';
 })
 export class DeputadoService implements DeputadoServiceContract {
 
-  private urlApi = `${environment.urlApi}/deputados`;
+  private urlApi = `${environment.urlApi}deputados/`;
 
   constructor(private http: HttpClient) { }
 

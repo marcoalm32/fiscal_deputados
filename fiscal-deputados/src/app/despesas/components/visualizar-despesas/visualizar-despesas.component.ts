@@ -29,7 +29,7 @@ export class VisualizarDespesasComponent implements OnInit, OnDestroy {
     { label: 'Abrir documento', action: this.abrirArquivo.bind(this) },
   ];
 
-  despesasList: DespesasModel[] = [];
+  despesasList: DespesasModel[] = []
   inscricoes: Subscription[] = [];
   parametros = {
     ordem: 'desc',
@@ -46,6 +46,7 @@ export class VisualizarDespesasComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.pegarDespesas(this.parametros);
   }
 
   ngOnDestroy() {
