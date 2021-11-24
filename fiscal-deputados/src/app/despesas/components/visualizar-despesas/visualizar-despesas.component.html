@@ -1,0 +1,16 @@
+
+<po-page-edit
+p-title="Visualizar Despesas"
+[p-literals]="{save: 'Voltar'}"
+[p-breadcrumb]="breadcrumb"
+(p-save)="voltar()"
+>
+    <po-table
+    [p-columns]="columns"
+    [p-items]="despesasList"
+    [p-actions]="actionsTable"
+    (p-show-more)="aparecerMais()"
+    [p-sort]="true"
+    [p-striped]="true"
+    ></po-table>
+</po-page-edit>
