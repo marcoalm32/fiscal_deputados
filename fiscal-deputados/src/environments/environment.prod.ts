@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  urlApi: 'https://dadosabertos.camara.leg.br/api/v2/'
 };
