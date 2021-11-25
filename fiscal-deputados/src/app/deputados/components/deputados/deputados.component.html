@@ -9,7 +9,7 @@ p-title="Gerenciar Deputados"
 (p-change-disclaimers)="renunciarEvento($event)"
 >
 <div class="po-row">
-  <div class="po-xl-3 po-lg-3 po-md-4 po-sm-4 card" *ngFor="let deputado of todosDeputados">
+  <div class="po-xl-3 po-lg-3 po-md-6 po-sm-12 card" *ngFor="let deputado of todosDeputados">
     <po-widget
         p-title="{{ deputado.nome | uppercase}}"
         p-primary-label="Detalhes"
