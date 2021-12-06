@@ -38,7 +38,7 @@ export class DeputadosComponent implements OnInit, OnDestroy {
     {property: 'dataNascimento', label: 'Data de Nascimento', gridColumns: 4, type: 'date'},
     {property: 'siglaUf', label: 'Estado', gridColumns: 4},
     {property: 'email', label: 'E-mail', gridColumns: 4},
-    {property: 'urlWebsite', label: 'link do site', gridColumns: 4}
+    {property: 'urlWebsite', label: 'link do site', gridColumns: 6}
   ]
 
   deputadoFactory = deputadosFactory;
@@ -89,7 +89,7 @@ export class DeputadosComponent implements OnInit, OnDestroy {
 
   filtrarPorNome(nome: string) {
     this.parametros['nome'] = nome;
-    this.pegarDeputados(this.parametros);
+    this.pegarDeputados(this.parametros.nome);
   }
 
   buscaAvancada(filtros: any) {
@@ -156,4 +156,11 @@ export class DeputadosComponent implements OnInit, OnDestroy {
 
   }
 
+  abrirArquivo(deputado: DeputadoDetalheView) {
+    const webSite = deputado.urlWebsite;
+    if(webSite)
+      window.open(webSite);
+    else
+      this.poNotification.error('Ocorreu um erro, tente mais tarde!');
+  }
 }
