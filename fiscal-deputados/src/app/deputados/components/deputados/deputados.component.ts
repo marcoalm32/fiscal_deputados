@@ -88,8 +88,11 @@ export class DeputadosComponent implements OnInit, OnDestroy {
   }
 
   filtrarPorNome(nome: string) {
-    this.parametros['nome'] = nome;
-    this.pegarDeputados(this.parametros.nome);
+    if(nome.length >= 3) {
+      this.parametros['nome'] = nome;
+      this.pegarDeputados(this.parametros.nome);
+    }
+
   }
 
   buscaAvancada(filtros: any) {
